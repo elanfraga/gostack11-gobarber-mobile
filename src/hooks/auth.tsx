@@ -9,9 +9,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../services/api';
 
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+}
+
 interface AuthState {
   token: string;
-  user: object;
+  user: IUser;
 }
 interface SignInCredentials {
   email: string;
@@ -19,7 +26,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: object;
+  user: IUser;
   loading: boolean;
   signIn(credencials: SignInCredentials): Promise<void>;
   signOut(): void;
