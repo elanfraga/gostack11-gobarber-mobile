@@ -52,9 +52,9 @@ export const UserAvatr = styled.Image`
   margin-left: auto;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.ScrollView``;
 
-export const ProviderListContainer = styled.ScrollView`
+export const ProviderListContainer = styled.View`
   height: 112px;
 `;
 
@@ -142,4 +142,19 @@ export const HourText = styled.Text<HourTexProps>`
   color: ${props => (props.selected ? '#232129' : '#f4ede8')};
   font-family: 'RobotoSlab-Regular';
   font-size: 16px;
+`;
+
+export const CreateAppointmentButton = styled(RectButton)`
+  height: 50px;
+  background: #ff9000;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24px 24px;
+`;
+
+export const CreateAppointmentButtonText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: 18px;
+  color: #232129;
 `;
