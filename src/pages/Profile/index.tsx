@@ -38,7 +38,7 @@ interface ProfileFormData {
 }
 
 const Perfil: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
@@ -125,10 +125,10 @@ const Perfil: React.FC = () => {
   const handleUpdateAvatar = useCallback(() => {
     ImagePicker.showImagePicker(
       {
-        title: 'Selecione um avatar',
+        title: 'Selecione um Avatar',
         cancelButtonTitle: 'Cancelar',
         takePhotoButtonTitle: 'Usar Câmera',
-        chooseFromLibraryButtonTitle: 'Escolher da galeria',
+        chooseFromLibraryButtonTitle: 'Escolher da Galeria',
       },
       response => {
         if (response.didCancel) {
@@ -136,7 +136,7 @@ const Perfil: React.FC = () => {
         }
 
         if (response.error) {
-          Alert.alert('Erro ao atualizar seu avatar.');
+          Alert.alert('Erro ao atualizar seu avatar.', response.error);
           return;
         }
 
@@ -148,9 +148,16 @@ const Perfil: React.FC = () => {
           uri: response.uri,
         });
 
-        api.patch('user/avatar', data).then(apiResponse => {
-          updateUser(apiResponse.data);
-        });
+        console.log(response.uri, response.origURL);
+
+        api
+          .patch('users/avatar', data)
+          .then(apiResponse => {
+            updateUser(apiResponse.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       },
     );
   }, [updateUser, user.id]);
@@ -256,6 +263,8 @@ const Perfil: React.FC = () => {
               >
                 Confirmar mudanças
               </Button>
+
+              <Button onPress={signOut}>SignOut</Button>
             </Form>
           </Container>
         </ScrollView>
